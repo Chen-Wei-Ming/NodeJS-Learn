@@ -1,0 +1,17 @@
+{
+  "name": "testserver",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies":{
+  	"mime" : "^2.0.3" ,
+  	"path" : "^0.12.7" ,
+  	"socketio" : "^1.0.0" ,
+  	"nodemailer" : "^4.4.1"
+  } ,
+  "main": "Server_Http.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
