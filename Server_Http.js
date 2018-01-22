@@ -74,7 +74,7 @@ function joinRoom(socket , room){
 	socket.emit('joinResult' , {room : room}) ; // 發送訊息 room
 	socket.broadcast.to(room).emit('message' , {
 		// 說明目前 guest name 加入 room
-		text: nickNames[socket.id] + 'has joined '+ room +'.' ;
+		text: nickNames[socket.id] + 'has joined '+ room +'.'
 	});
 
 	var userInRoom = io.socket.clients(room) ;
