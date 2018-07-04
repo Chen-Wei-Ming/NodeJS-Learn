@@ -18,7 +18,7 @@ stream.on('end' , function(){
 server.on('request' , function(req , res){
 	res.writeHead(200 , {'Contetn-Type': 'image/png'}) ;
 	fs.createReadStream('./data/image.png').pipe(res) ;
-	res.end('Hello World') ;
+	// res.end('Hello World') ;
 }).listen(3000) ;
 
 console.log('Server running at http://localhost:3000') ;

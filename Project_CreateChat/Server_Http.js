@@ -55,39 +55,3 @@ var server = http.createServer(function(request , response){
 server.listen(3000 , function(){ // 設定Server Port Number
 	console.log('Server running at http://localhost:3000') ;
 }) ;
-
-// 新增訪問者資訊
-function assignGuestName(socket , guestNumber , nickNames , namesUsed){
-	var name = 'Guest'+guestNumber; // 預設名稱 Guest1、Guest2 ...
-	nickNames[socket.id] = name ; // nickName為Array，依據socketID作為index
-	socket.emit('nameResult',{ //發送訊息 name
-		success: true,
-		name: name // 變數 與 數值
-	});
-	namesUsed.push(name) ; // 將name紀錄，避免重複
-	return guestNumber + 1 ; // Number會累加
-}
-
-function joinRoom(socket , room){
-	socket.join(room) ; // room 會指定要加入的Room
-	currentRoom[socket.id] = room ; // --- 待確認
-	socket.emit('joinResult' , {room : room}) ; // 發送訊息 room
-	socket.broadcast.to(room).emit('message' , {
-		// 說明目前 guest name 加入 room
-		text: nickNames[socket.id] + 'has joined '+ room +'.' ;
-	});
-
-	var userInRoom = io.socket.clients(room) ;
-	if(userInRoom.length > 1){
-		var usersInRoomSummary = 'Users currently in ' + room + ':' ;
-		for(var index in userInRoom){
-			var userSocketId = userInRoom[index].id ;
-			if(userSocketId != socket.id){
-				usersInRoomSummary += ', ' ;
-				usersInRoomSummary += nickNames[userSocketId] ;
-			}
-		}
-		usersInRoomSummary += '.' ;
-		socket.emit('message' , {text:usersInRoomSummary}) ;
-	}
-}
